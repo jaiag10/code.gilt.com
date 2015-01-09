@@ -108,7 +108,7 @@ function addRepo(i, repo) {
 }
 
 function updateMembers() {
-  $.getJSON(GH_API_URI + "/orgs/gilt/members", function(result) {
+  $.getJSON(GH_API_URI + "/orgs/gilt/members?per_page=150", function(result) {
     if (result && result.length > 0) {
       var stats = $("#member-stats").text("We are ");
       $("<a>").attr("href", "https://github.com/gilt?tab=members").text(result.length + " members").appendTo(stats);
