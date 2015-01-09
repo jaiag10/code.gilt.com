@@ -31,15 +31,16 @@ function loadRepos(page) {
 }
 
 function addRepos(repos) {
-  var watchWeight = 6; // repo watchers
+  var starWeight = 9; // repo watchers
   var forkWeight = 3; // forks of the repo
   var giltWeight = 1000000;  // if the gilt repo is actually a fork
-  //var activityWeight = 0;
+
+  repos = repos.filter(starFilter);
 
   // Sort weight priority: gilt repo, starred, watched, activity
   $.each(repos, function(i,repo) { // assign weights
     var weight =
-      (repo.watchers_count * watchWeight) +
+      (repo.stargazers_count * starWeight) +
       (repo.forks_count * forkWeight) +
       (!repo.fork * giltWeight);
     repo["gilt_weight"] = weight;
@@ -69,6 +70,10 @@ function addRepos(repos) {
   var stats = $("#repo-stats").text("Providing ");
   $("<a>").attr("href", "https://github.com/gilt").text(repos.length + " public repositories").appendTo(stats);
   stats.removeClass("hidden");
+}
+
+function starFilter(repo) {
+  return repo.stargazers_count >= 5;
 }
 
 function addRepo(i, repo) {
