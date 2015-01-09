@@ -31,7 +31,7 @@ function loadRepos(page) {
 }
 
 function addRepos(repos) {
-  var watchWeight = 6; // repo watchers
+  var starWeight = 9; // repo watchers
   var forkWeight = 3; // forks of the repo
   var giltWeight = 1000000;  // if the gilt repo is actually a fork
   //var activityWeight = 0;
@@ -39,7 +39,7 @@ function addRepos(repos) {
   // Sort weight priority: gilt repo, starred, watched, activity
   $.each(repos, function(i,repo) { // assign weights
     var weight =
-      (repo.watchers_count * watchWeight) +
+      (repo.stargazers_count * starWeight) +
       (repo.forks_count * forkWeight) +
       (!repo.fork * giltWeight);
     repo["gilt_weight"] = weight;
